@@ -1,15 +1,27 @@
-import { Container } from './styles';
+import { Container, FooterSection, Link, Links, SectionTitle } from './styles';
+
+const currentYear = new Date().getFullYear();
 
 const Footer = () => (
   <Container>
     <div className="container">
-      <div>
-        <h4>Categorias</h4>
-      </div>
-      <div>
-        <h4>Acesso rápido</h4>
-      </div>
-      <p>2024 - &copy; E-PLAY Todos os direitos reservados</p>
+      <FooterSection>
+        <SectionTitle>Categorias</SectionTitle>
+        <Links>
+          <Link>Games</Link>
+          <Link>Consoles</Link>
+          <Link>Acessórios</Link>
+        </Links>
+      </FooterSection>
+      <FooterSection>
+        <SectionTitle>Acesso rápido</SectionTitle>
+        <Links>
+          <Link>Novidades</Link>
+          <Link>Promoções</Link>
+          <Link>Em Breve</Link>
+        </Links>
+      </FooterSection>
+      <p>{currentYear} - &copy; E-PLAY Todos os direitos reservados</p>
     </div>
   </Container>
 );
