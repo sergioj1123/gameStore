@@ -1,19 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Banner from './components/Banner';
 import Header from './components/Header';
 import { GlobalCss } from './styles/styles';
-import ProductsList from './components/ProductsList';
+import Home from './pages/Home';
 
 const BrowserRouter = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <>
-        <Banner />
-        <ProductsList title="Promoções" background="gray" />
-        <ProductsList title="Em Breve" background="black" />
-      </>
-    ),
+    element: <Home />,
   },
 ]);
 
