@@ -5,7 +5,7 @@ import { Props } from './index';
 export const TagContainer = styled.div<Props>`
   display: inline-block;
   background-color: ${colors.green};
-  color: ${colors.withe};
+  color: ${colors.white};
   padding: ${({ size }: Props) => (size === 'large' ? '4px 6px' : '4px 6px')};
   font-weight: bold;
   border-radius: 8px;

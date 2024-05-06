@@ -12,12 +12,12 @@ export const GlobalCss = createGlobalStyle`
 
   body{
     background-color: ${colors.black};
-    color: ${colors.withe};
+    color: ${colors.white};
     padding-top: 40px;
   }
 
   a {
-    color: ${colors.withe};
+    color: ${colors.white};
     text-decoration: none;
   }
 
