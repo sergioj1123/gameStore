@@ -2,6 +2,10 @@ import { useParams } from 'react-router-dom';
 import Hero from '../../components/Hero';
 import Section from '../../components/Section';
 
+import Gallery from '../../components/Gallery';
+
+import hogwartsGalery from '../../assets/images/galery.png';
+
 const Product = () => {
   return (
     <>
@@ -34,9 +38,7 @@ const Product = () => {
           jogo.
         </p>
       </Section>
-      <Section title="Galeria" background="black">
-        <p>fotos</p>
-      </Section>
+      <Gallery defaultCover={hogwartsGalery} name="Hogwarts Legacy"></Gallery>
     </>
   );
 };
