@@ -1,95 +1,48 @@
+import { useEffect, useState } from 'react';
 import ProductsList from '../../components/ProductsList';
-import Game from '../../models/Game';
-import imgResident from '../../assets/images/resident.png';
-import imgDiablo from '../../assets/images/diablo.png';
-import imgStarWars from '../../assets/images/star_wars.png';
-import imgZelda from '../../assets/images/zelda.png';
+import { Game } from '../Home';
 
-const promotionGames: Game[] = [
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgResident,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 1,
-  },
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgDiablo,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 2,
-  },
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgStarWars,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 3,
-  },
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgZelda,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 7,
-  },
-];
+const Categories = () => {
+  const [gamesAction, setGamesAction] = useState<Game[]>([]);
+  const [gamesSports, setGamesSports] = useState<Game[]>([]);
+  const [gamesRpg, setGamesRpg] = useState<Game[]>([]);
+  const [gamesSimulation, setGamesSimulation] = useState<Game[]>([]);
+  const [gamesFight, setGamesFight] = useState<Game[]>([]);
 
-const upcomingGames: Game[] = [
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgResident,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 4,
-  },
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgDiablo,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 5,
-  },
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgStarWars,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 6,
-  },
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgZelda,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 8,
-  },
-];
+  useEffect(() => {
+    fetch('https://fake-api-tau.vercel.app/api/eplay/acao')
+      .then((res) => res.json())
+      .then((res) => setGamesAction(res));
 
-const Categories = () => (
-  <>
-    <ProductsList games={promotionGames} title="RPG" background="gray" />
-    <ProductsList games={upcomingGames} title="Aventura" background="black" />
-    <ProductsList games={promotionGames} title="Ação" background="gray" />
-    <ProductsList games={upcomingGames} title="FPS" background="black" />
-  </>
-);
+    fetch('https://fake-api-tau.vercel.app/api/eplay/esportes')
+      .then((res) => res.json())
+      .then((res) => setGamesSports(res));
 
+    fetch('https://fake-api-tau.vercel.app/api/eplay/simulacao')
+      .then((res) => res.json())
+      .then((res) => setGamesSimulation(res));
+
+    fetch('https://fake-api-tau.vercel.app/api/eplay/rpg')
+      .then((res) => res.json())
+      .then((res) => setGamesRpg(res));
+
+    fetch('https://fake-api-tau.vercel.app/api/eplay/luta')
+      .then((res) => res.json())
+      .then((res) => setGamesFight(res));
+  }, []);
+
+  return (
+    <>
+      <ProductsList games={gamesSports} title="Esportes" background="black" />
+      <ProductsList games={gamesRpg} title="RPG" background="gray" />
+      <ProductsList games={gamesFight} title="Luta" background="black" />
+      <ProductsList games={gamesAction} title="Ação" background="gray" />
+      <ProductsList
+        games={gamesSimulation}
+        title="Simulação"
+        background="black"
+      />
+    </>
+  );
+};
 export default Categories;

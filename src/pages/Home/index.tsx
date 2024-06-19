@@ -1,95 +1,56 @@
 import Banner from '../../components/Banner';
+import { GalleryItem } from '../../components/Gallery';
 import ProductsList from '../../components/ProductsList';
-import Game from '../../models/Game';
-import imgResident from '../../assets/images/resident.png';
-import imgDiablo from '../../assets/images/diablo.png';
-import imgStarWars from '../../assets/images/star_wars.png';
-import imgZelda from '../../assets/images/zelda.png';
+import { useEffect, useState } from 'react';
 
-const promotionGames: Game[] = [
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgResident,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 1,
-  },
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgDiablo,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 2,
-  },
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgStarWars,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 3,
-  },
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgZelda,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 7,
-  },
-];
+export type Game = {
+  id: number;
+  name: string;
+  description: string;
+  release_date?: string;
+  prices: {
+    discount?: number;
+    old?: number;
+    current?: number;
+  };
+  details: {
+    category: string;
+    system: string;
+    developer: string;
+    publisher: string;
+    languages: string[];
+  };
+  media: {
+    thumbnail: string;
+    cover: string;
+    gallery: GalleryItem[];
+  };
+};
 
-const upcomingGames: Game[] = [
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgResident,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 4,
-  },
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgDiablo,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 5,
-  },
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgStarWars,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 6,
-  },
-  {
-    category: 'Ação',
-    description: 'Jogo de ação e aventura',
-    image: imgZelda,
-    infos: ['Singleplayer', 'Multiplayer'],
-    system: 'PS4',
-    title: 'God of War',
-    id: 8,
-  },
-];
+const Home = () => {
+  const [promotionGames, setPromotionGames] = useState<Game[]>([]);
+  const [upcomingGames, setUpcomingGames] = useState<Game[]>([]);
 
-const Home = () => (
-  <>
-    <Banner />
-    <ProductsList games={promotionGames} title="Promoções" background="gray" />
-    <ProductsList games={upcomingGames} title="Em Breve" background="black" />
-  </>
-);
+  useEffect(() => {
+    fetch('https://fake-api-tau.vercel.app/api/eplay/promocoes')
+      .then((res) => res.json())
+      .then((res) => setPromotionGames(res));
+
+    fetch('https://fake-api-tau.vercel.app/api/eplay/em-breve')
+      .then((res) => res.json())
+      .then((res) => setUpcomingGames(res));
+  }, []);
+  return (
+    <>
+      <Banner />
+      <ProductsList
+        games={promotionGames}
+        title="Promoções"
+        background="gray"
+      />
+      <ProductsList games={upcomingGames} title="Em Breve" background="black" />
+    </>
+  );
+};
 
 export default Home;

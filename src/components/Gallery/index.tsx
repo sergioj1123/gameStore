@@ -2,13 +2,12 @@ import Section from '../Section';
 
 import { Action, Item, Itens, Modal, ModalContent } from './styles';
 
-import hogwartsGalery from '../../assets/images/galery.png';
 import play from '../../assets/images/play.svg';
 import zoom from '../../assets/images/mais-zoom.svg';
 import close from '../../assets/images/close.svg';
 import { useState } from 'react';
 
-interface GalleryItem {
+export interface GalleryItem {
   type: 'image' | 'video';
   url: string;
 }
@@ -20,19 +19,10 @@ interface ModalState extends GalleryItem {
 type Props = {
   defaultCover: string;
   name: string;
+  items: GalleryItem[];
 };
 
-const mockGallery: GalleryItem[] = [
-  { type: 'image', url: hogwartsGalery },
-  { type: 'image', url: hogwartsGalery },
-  {
-    type: 'video',
-    url: 'https://www.youtube.com/watch?v=1O6Qstncpnc&ab_channel=PlayStation',
-  },
-  { type: 'image', url: hogwartsGalery },
-];
-
-const Gallery = ({ defaultCover, name }: Props) => {
+const Gallery = ({ defaultCover, name, items }: Props) => {
   const [modal, setModal] = useState<ModalState>({
     type: 'image',
     url: '',
@@ -61,7 +51,7 @@ const Gallery = ({ defaultCover, name }: Props) => {
     <>
       <Section title="Galeria" background="black">
         <Itens>
-          {mockGallery.map((item, index) => (
+          {items.map((item, index) => (
             <Item
               key={index}
               onClick={() => {
