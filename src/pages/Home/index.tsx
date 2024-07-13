@@ -1,7 +1,11 @@
 import Banner from '../../components/Banner';
 import { GalleryItem } from '../../components/Gallery';
 import ProductsList from '../../components/ProductsList';
-import { useEffect, useState } from 'react';
+
+import {
+  useGetPromotionGamesQuery,
+  useGetUpcomingGamesQuery,
+} from '../../services/api';
 
 export type Game = {
   id: number;
@@ -28,29 +32,27 @@ export type Game = {
 };
 
 const Home = () => {
-  const [promotionGames, setPromotionGames] = useState<Game[]>([]);
-  const [upcomingGames, setUpcomingGames] = useState<Game[]>([]);
+  const { data: promotionGames } = useGetPromotionGamesQuery();
+  const { data: upcomingGames } = useGetUpcomingGamesQuery();
 
-  useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/eplay/promocoes')
-      .then((res) => res.json())
-      .then((res) => setPromotionGames(res));
-
-    fetch('https://fake-api-tau.vercel.app/api/eplay/em-breve')
-      .then((res) => res.json())
-      .then((res) => setUpcomingGames(res));
-  }, []);
-  return (
-    <>
-      <Banner />
-      <ProductsList
-        games={promotionGames}
-        title="Promoções"
-        background="gray"
-      />
-      <ProductsList games={upcomingGames} title="Em Breve" background="black" />
-    </>
-  );
+  if (promotionGames && upcomingGames) {
+    return (
+      <>
+        <Banner />
+        <ProductsList
+          games={promotionGames}
+          title="Promoções"
+          background="gray"
+        />
+        <ProductsList
+          games={upcomingGames}
+          title="Em Breve"
+          background="black"
+        />
+      </>
+    );
+  }
+  return <h3>'Carregando...'</h3>;
 };
 
 export default Home;
