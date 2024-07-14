@@ -5,6 +5,7 @@ import { ButtonContainer } from '../Button/styles';
 import close from '../../assets/images/close.svg';
 
 export const Overlay = styled.div`
+  cursor: pointer;
   position: absolute;
   top: 0;
   left: 0;
@@ -20,8 +21,12 @@ export const CartContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
+  display: none;
   justify-content: flex-end;
+
+  &.is-open {
+    display: flex;
+  }
 `;
 
 export const Sidebar = styled.aside`

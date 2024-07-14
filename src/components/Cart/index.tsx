@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../Button';
 import Tag from '../Tag';
 import {
@@ -8,11 +9,22 @@ import {
   Quantity,
   Sidebar,
 } from './styles';
+import { RootReducer } from '../../store';
+import { closeCart } from '../../store/reducers/cart';
 
 const Cart = () => {
+  const { isOpen } = useSelector((state: RootReducer) => state.cart);
+  const dispatch = useDispatch();
+
+  const closeCartPopUp = () => {
+    dispatch(closeCart());
+  };
   return (
-    <CartContainer>
-      <Overlay />
+    <CartContainer className={isOpen ? 'is-open' : ''}>
+      <Overlay
+        title="Clique aqui para fechar o carrinho"
+        onClick={closeCartPopUp}
+      />
       <Sidebar>
         <ul>
           <CartItem>
