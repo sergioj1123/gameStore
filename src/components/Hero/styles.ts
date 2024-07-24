@@ -53,4 +53,7 @@ export const Infos = styled.div`
     display: block;
     text-decoration: line-through;
   }
+  .normal-price {
+    text-decoration: none;
+  }
 `;

@@ -10,14 +10,23 @@ import {
   Sidebar,
 } from './styles';
 import { RootReducer } from '../../store';
-import { closeCart } from '../../store/reducers/cart';
+import { closeCart, remove } from '../../store/reducers/cart';
+import { priceMask } from '../ProductsList';
 
 const Cart = () => {
-  const { isOpen } = useSelector((state: RootReducer) => state.cart);
+  const { isOpen, items } = useSelector((state: RootReducer) => state.cart);
   const dispatch = useDispatch();
 
   const closeCartPopUp = () => {
     dispatch(closeCart());
+  };
+
+  const removeItem = (id: number) => {
+    dispatch(remove(id));
+  };
+
+  const getTotalPrice = () => {
+    return items.reduce((acc, item) => acc + item.prices.current!, 0);
   };
   return (
     <CartContainer className={isOpen ? 'is-open' : ''}>
@@ -27,36 +36,29 @@ const Cart = () => {
       />
       <Sidebar>
         <ul>
-          <CartItem>
-            <img src="https://via.placeholder.com/50" alt="Product" />
-            <div>
-              <h3>Nome</h3>
-              <Tag>RPG</Tag>
-              <Tag>PS5</Tag>
-              <span>R$ 250,00</span>
-            </div>
-            <button
-              title="Clique aqui para remover do carrinho"
-              type="button"
-            ></button>
-          </CartItem>
-          <CartItem>
-            <img src="https://via.placeholder.com/50" alt="Product" />
-            <div>
-              <h3>Nome</h3>
-              <Tag>RPG</Tag>
-              <Tag>PS5</Tag>
-              <span>R$ 250,00</span>
-            </div>
-            <button
-              title="Clique aqui para remover do carrinho"
-              type="button"
-            ></button>
-          </CartItem>
+          {items.map((item) => (
+            <CartItem key={item.id}>
+              <img
+                src={item.media.thumbnail}
+                alt="Imagem da Thumbnail do jogo"
+              />
+              <div>
+                <h3>{item.name}</h3>
+                <Tag>{item.details.category}</Tag>
+                <Tag>{item.details.system}</Tag>
+                <span>{priceMask(item.prices.current)}</span>
+              </div>
+              <button
+                title="Clique aqui para remover do carrinho"
+                type="button"
+                onClick={() => removeItem(item.id)}
+              ></button>
+            </CartItem>
+          ))}
         </ul>
-        <Quantity>jogos</Quantity>
+        <Quantity>{items.length} jogo(s) no carrinho</Quantity>
         <Prices>
-          Total <span>Em Até 6x sem juros</span>
+          Total de {priceMask(getTotalPrice())} <span>Em Até 6x sem juros</span>
         </Prices>
         <Button title="Clique aqui para finalizar sua compra" type="button">
           Continuar com a compra

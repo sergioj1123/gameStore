@@ -3,12 +3,20 @@ import Tag from '../Tag';
 import Button from '../Button';
 import { Game } from '../../pages/Home';
 import { priceMask } from '../ProductsList';
+import { useDispatch } from 'react-redux';
+import { addToCart, openCart } from '../../store/reducers/cart';
 
 type Props = {
   game: Game;
 };
 
 const Hero = ({ game }: Props) => {
+  const dispatch = useDispatch();
+  const addItemToCart = () => {
+    dispatch(addToCart(game));
+    dispatch(openCart());
+  };
+
   return (
     <Banner style={{ backgroundImage: `url(${game.media.cover})` }}>
       <div className="container">
@@ -23,7 +31,9 @@ const Hero = ({ game }: Props) => {
               <span>De {priceMask(game.prices.old)}</span>
             )}
             {game.prices.current && (
-              <span>Por {priceMask(game.prices.current)}</span>
+              <span className="normal-price">
+                Por {priceMask(game.prices.current)}
+              </span>
             )}
           </p>
           {game.prices.discount && (
@@ -31,6 +41,7 @@ const Hero = ({ game }: Props) => {
               title="Clique aqui para adicionar esse jogo ao carrinho"
               type="button"
               variant="primary"
+              onClick={addItemToCart}
             >
               Adicionar ao carrinho
             </Button>
