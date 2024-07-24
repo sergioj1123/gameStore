@@ -43,11 +43,13 @@ const Home = () => {
           games={promotionGames}
           title="Promoções"
           background="gray"
+          id="on-sale"
         />
         <ProductsList
           games={upcomingGames}
           title="Em Breve"
           background="black"
+          id="coming-soon"
         />
       </>
     );

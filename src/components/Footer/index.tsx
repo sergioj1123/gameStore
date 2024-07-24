@@ -8,17 +8,18 @@ const Footer = () => (
       <FooterSection>
         <SectionTitle>Categorias</SectionTitle>
         <Links>
-          <Link>Games</Link>
-          <Link>Consoles</Link>
-          <Link>Acessórios</Link>
+          <Link to="/categories#rpg">RPG</Link>
+          <Link to="/categories#action">Ação</Link>
+          <Link to="/categories#simulation">Simulação</Link>
+          <Link to="/categories#sports">Esportes</Link>
+          <Link to="/categories#fight">Luta</Link>
         </Links>
       </FooterSection>
       <FooterSection>
         <SectionTitle>Acesso rápido</SectionTitle>
         <Links>
-          <Link>Novidades</Link>
-          <Link>Promoções</Link>
-          <Link>Em Breve</Link>
+          <Link to="/#on-sale">Promoções</Link>
+          <Link to="/#coming-soon">Em Breve</Link>
         </Links>
       </FooterSection>
       <p>{currentYear} - &copy; E-PLAY Todos os direitos reservados</p>
