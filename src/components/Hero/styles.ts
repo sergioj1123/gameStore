@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import colors from '../../styles/variables';
 import { TagContainer } from '../Tag/styles';
+import { breakpoints } from '../../styles/styles';
 
 export const Banner = styled.div`
   position: relative;
@@ -33,6 +34,10 @@ export const Banner = styled.div`
     flex-direction: column;
     height: 100%;
     justify-content: space-between;
+  }
+
+  @media (max-width: ${breakpoints.tablet}) {
+    backgroud-size: cover;
   }
 `;
 

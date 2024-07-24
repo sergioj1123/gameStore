@@ -3,10 +3,11 @@ import colors from '../../styles/variables';
 
 export const Itens = styled.ul`
   display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 `;
 
 export const Item = styled.li`
-  margin-right: 16px;
   position: relative;
   > img {
     border: 2px solid ${colors.white};
