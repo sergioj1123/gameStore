@@ -10,7 +10,7 @@ type RowProps = {
 };
 
 type TagButtonProps = {
-  isActive: boolean;
+  isactive: boolean;
 };
 
 export const Row = styled.div<RowProps>`
@@ -47,7 +47,7 @@ export const TabButton = styled.button<TagButtonProps>`
   font-weight: bold;
   color: ${colors.white};
   background-color: ${(props) =>
-    props.isActive ? colors.green : colors.black};
+    props.isactive ? colors.green : colors.black};
   height: 32px;
   border: none;
   margin-right: 16px;
