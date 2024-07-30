@@ -2,8 +2,8 @@ import { createGlobalStyle } from 'styled-components';
 import colors from './variables';
 
 export const breakpoints = {
-  tablet: '768px',
-  desktop: '1024px',
+  tablet: '769px',
+  desktop: '1025px',
 };
 
 export const GlobalCss = createGlobalStyle`
