@@ -6,9 +6,11 @@ import creditCard from '../../assets/images/creditCard.svg';
 import barCode from '../../assets/images/barCode.svg';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { usePurchaseMutation } from '../../services/api';
 
 const CheckOut = () => {
   const [payWithCard, setPayWithCard] = useState(false);
+  const [purchase, { isLoading, isError, data }] = usePurchaseMutation();
 
   const form = useFormik({
     initialValues: {
@@ -89,7 +91,39 @@ const CheckOut = () => {
       ),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      purchase({
+        billing: {
+          document: values.cpf,
+          email: values.email,
+          name: values.fullName,
+        },
+        delivery: {
+          email: values.deliveryEmail,
+        },
+        payment: {
+          card: {
+            active: payWithCard,
+            code: Number(values.cardCVV),
+            expires: {
+              month: values.cardExpirationMonth,
+              year: values.cardExpirationYear,
+            },
+            name: values.cardName,
+            number: values.cardNumber,
+            owner: {
+              document: values.cardOwnerCPF,
+              name: values.cardOwner,
+            },
+          },
+          installments: Number(values.installments),
+        },
+        products: [
+          {
+            id: 1,
+            price: 100,
+          },
+        ],
+      });
     },
   });
 
