@@ -1,4 +1,4 @@
-# Nome do Projeto
+# Loja de Jogos
 
 Esse projeto é o front-end de uma loja de games, contendo uma seção na página inicial que mostra um jogo em destaque no banner, além das divisões de jogos em promoção e destaques. Também existe outra seção dentro do site, onde os jogos são divididos em categorias (luta, simulação, RPG, dentre outros), cada jogo possuindo uma página específica que contém suas informações, preço, algumas imagens e um breve vídeo sobre o jogo. É possível adicionar novos jogos ao carrinho e, por fim, finalizar a compra, adicionando informações e selecionando a forma de pagamento (boleto ou cartão). Caso a forma de pagamento seja cartão, é necessário adicionar as informações do cartão para concluir a compra. Após finalizar a compra, a página retorna as informações do pedido junto ao seu código de compra.
 
