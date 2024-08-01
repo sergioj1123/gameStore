@@ -1,8 +1,8 @@
 import Button from '../Button';
 import Tag from '../Tag';
 import { Image, Price, Title } from './styles';
-import { priceMask } from '../ProductsList';
 import { useGetDestaqueQuery } from '../../services/api';
+import { priceMask } from '../../utilities';
 
 const Banner = () => {
   const { data: game } = useGetDestaqueQuery();

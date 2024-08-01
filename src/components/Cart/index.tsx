@@ -11,7 +11,7 @@ import {
 } from './styles';
 import { RootReducer } from '../../store';
 import { closeCart, remove } from '../../store/reducers/cart';
-import { priceMask } from '../ProductsList';
+import { priceMask } from '../../utilities';
 
 const Cart = () => {
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart);

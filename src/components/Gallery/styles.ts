@@ -9,6 +9,7 @@ export const Itens = styled.ul`
 
 export const Item = styled.li`
   position: relative;
+  cursor: zoom-in;
   > img {
     border: 2px solid ${colors.white};
     border-radius: 8px;
@@ -90,7 +91,6 @@ export const ModalContent = styled.div`
   iframe {
     max-width: 100%;
     object-fit: cover;
-    cursor: pointer;
   }
   iframe {
     width: 100%;
