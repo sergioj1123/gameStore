@@ -32,29 +32,30 @@ export type Game = {
 };
 
 const Home = () => {
-  const { data: promotionGames } = useGetPromotionGamesQuery();
-  const { data: upcomingGames } = useGetUpcomingGamesQuery();
+  const { data: promotionGames, isLoading: isLoadingPromotion } =
+    useGetPromotionGamesQuery();
+  const { data: upcomingGames, isLoading: isLoadingUpComing } =
+    useGetUpcomingGamesQuery();
 
-  if (promotionGames && upcomingGames) {
-    return (
-      <>
-        <Banner />
-        <ProductsList
-          games={promotionGames}
-          title="Promoções"
-          background="gray"
-          id="on-sale"
-        />
-        <ProductsList
-          games={upcomingGames}
-          title="Em Breve"
-          background="black"
-          id="coming-soon"
-        />
-      </>
-    );
-  }
-  return <h3>'Carregando...'</h3>;
+  return (
+    <>
+      <Banner />
+      <ProductsList
+        games={promotionGames}
+        title="Promoções"
+        background="gray"
+        id="on-sale"
+        isLoading={isLoadingPromotion}
+      />
+      <ProductsList
+        games={upcomingGames}
+        title="Em Breve"
+        background="black"
+        id="coming-soon"
+        isLoading={isLoadingUpComing}
+      />
+    </>
+  );
 };
 
 export default Home;

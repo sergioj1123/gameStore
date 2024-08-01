@@ -31,7 +31,6 @@ export const Action = styled.div`
   justify-content: center;
   opacity: 0;
   transition: opacity 0.3s;
-  cursor: pointer;
 
   &:hover {
     opacity: 1;
@@ -91,6 +90,7 @@ export const ModalContent = styled.div`
   iframe {
     max-width: 100%;
     object-fit: cover;
+    cursor: pointer;
   }
   iframe {
     width: 100%;

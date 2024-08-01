@@ -3,11 +3,12 @@ import Tag from '../Tag';
 import { Image, Price, Title } from './styles';
 import { useGetDestaqueQuery } from '../../services/api';
 import { priceMask } from '../../utilities';
+import Loader from '../Loader';
 
 const Banner = () => {
   const { data: game } = useGetDestaqueQuery();
 
-  if (!game) return <h3>'Carregando...'</h3>;
+  if (!game) return <Loader />;
 
   return (
     <Image style={{ backgroundImage: `url(${game?.media.cover})` }}>
