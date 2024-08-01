@@ -59,7 +59,7 @@ const CheckOut = () => {
         .oneOf([Yup.ref('deliveryEmail')], 'Emails não conferem')
         .required('Email é obrigatório'),
 
-      cardOwner: Yup.string().when((values, schema) =>
+      cardOwner: Yup.string().when((_values, schema) =>
         payWithCard
           ? schema
               .min(5, 'O nome deve ter pelo menos 5 caracteres')
@@ -67,16 +67,16 @@ const CheckOut = () => {
           : schema,
       ),
 
-      cardOwnerCPF: Yup.string().when((values, schema) =>
+      cardOwnerCPF: Yup.string().when((_values, schema) =>
         payWithCard
           ? schema.min(11, 'CPF inválido').required('CPF é obrigatório')
           : schema,
       ),
-      cardName: Yup.string().when((values, schema) =>
+      cardName: Yup.string().when((_values, schema) =>
         payWithCard ? schema.required('Nome do cartão é obrigatório') : schema,
       ),
 
-      cardNumber: Yup.string().when((values, schema) =>
+      cardNumber: Yup.string().when((_values, schema) =>
         payWithCard
           ? schema
               .min(16, 'Número do cartão inválido')
@@ -84,25 +84,25 @@ const CheckOut = () => {
           : schema,
       ),
 
-      cardExpirationMonth: Yup.string().when((values, schema) =>
+      cardExpirationMonth: Yup.string().when((_values, schema) =>
         payWithCard
           ? schema.min(2, 'Mês inválido').required('Mês é obrigatório')
           : schema,
       ),
 
-      cardExpirationYear: Yup.string().when((values, schema) =>
+      cardExpirationYear: Yup.string().when((_values, schema) =>
         payWithCard
           ? schema.min(2, 'Ano inválido').required('Ano é obrigatório')
           : schema,
       ),
 
-      cardCVV: Yup.string().when((values, schema) =>
+      cardCVV: Yup.string().when((_values, schema) =>
         payWithCard
           ? schema.min(3, 'CVV inválido').required('CVV é obrigatório')
           : schema,
       ),
 
-      installments: Yup.string().when((values, schema) =>
+      installments: Yup.string().when((_values, schema) =>
         payWithCard ? schema.required('Parcelas é obrigatório') : schema,
       ),
     }),
