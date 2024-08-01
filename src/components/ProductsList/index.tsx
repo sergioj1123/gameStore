@@ -1,4 +1,3 @@
-import { Game } from '../../pages/Home';
 import { priceMask } from '../../utilities';
 import Loader from '../Loader';
 import Product from '../Product';

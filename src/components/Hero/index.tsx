@@ -1,7 +1,6 @@
 import { Banner, Infos } from './styles';
 import Tag from '../Tag';
 import Button from '../Button';
-import { Game } from '../../pages/Home';
 import { useDispatch } from 'react-redux';
 import { addToCart, openCart } from '../../store/reducers/cart';
 import { priceMask } from '../../utilities';

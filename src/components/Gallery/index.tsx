@@ -1,16 +1,10 @@
+import { useState } from 'react';
 import Section from '../Section';
-
-import { Action, Item, Itens, Modal, ModalContent } from './styles';
-
 import play from '../../assets/images/play.svg';
 import zoom from '../../assets/images/mais-zoom.svg';
 import close from '../../assets/images/close.svg';
-import { useState } from 'react';
 
-export interface GalleryItem {
-  type: 'image' | 'video';
-  url: string;
-}
+import { Action, Item, Itens, Modal, ModalContent } from './styles';
 
 interface ModalState extends GalleryItem {
   isVisible: boolean;
