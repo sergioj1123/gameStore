@@ -131,12 +131,10 @@ const CheckOut = () => {
     setPayWithCard(!payWithCard);
   };
 
-  const getErrorMessage = (field: string, message?: string) => {
+  const checkInputHasError = (field: string) => {
     const alredyChanged = field in form.touched;
     const hasError = field in form.errors;
-
-    if (alredyChanged && hasError) return message;
-    return '';
+    return alredyChanged && hasError;
   };
 
   return (
@@ -193,10 +191,8 @@ const CheckOut = () => {
                     type="text"
                     name="fullName"
                     value={form.values.fullName}
+                    className={checkInputHasError('fullName') ? 'error' : ''}
                   />
-                  <small>
-                    {getErrorMessage('fullName', form.errors.fullName)}
-                  </small>
                 </InputGroup>
                 <InputGroup>
                   <label htmlFor="email">Email</label>
@@ -207,8 +203,8 @@ const CheckOut = () => {
                     type="email"
                     name="email"
                     value={form.values.email}
+                    className={checkInputHasError('email') ? 'error' : ''}
                   />
-                  <small>{getErrorMessage('email', form.errors.email)}</small>
                 </InputGroup>
                 <InputGroup>
                   <label htmlFor="cpf">CPF</label>
@@ -219,9 +215,9 @@ const CheckOut = () => {
                     value={form.values.cpf}
                     onChange={form.handleChange}
                     onBlur={form.handleBlur}
+                    className={checkInputHasError('cpf') ? 'error' : ''}
                   />
                 </InputGroup>
-                <small>{getErrorMessage('cpf', form.errors.cpf)}</small>
               </Row>
               <h3 className="margin-top">
                 Dados de entrega - conteúdo digital
@@ -236,13 +232,10 @@ const CheckOut = () => {
                     type="email"
                     name="deliveryEmail"
                     value={form.values.deliveryEmail}
+                    className={
+                      checkInputHasError('deliveryEmail') ? 'error' : ''
+                    }
                   />
-                  <small>
-                    {getErrorMessage(
-                      'deliveryEmail',
-                      form.errors.deliveryEmail,
-                    )}
-                  </small>
                 </InputGroup>
                 <InputGroup>
                   <label htmlFor="confirmDeliveryEmail">Confirme o Email</label>
@@ -253,13 +246,10 @@ const CheckOut = () => {
                     type="email"
                     name="confirmDeliveryEmail"
                     value={form.values.confirmDeliveryEmail}
+                    className={
+                      checkInputHasError('confirmDeliveryEmail') ? 'error' : ''
+                    }
                   />
-                  <small>
-                    {getErrorMessage(
-                      'confirmDeliveryEmail',
-                      form.errors.confirmDeliveryEmail,
-                    )}
-                  </small>
                 </InputGroup>
               </Row>
             </>
@@ -297,10 +287,10 @@ const CheckOut = () => {
                           type="text"
                           name="cardOwner"
                           value={form.values.cardOwner}
+                          className={
+                            checkInputHasError('cardOwner') ? 'error' : ''
+                          }
                         />
-                        <small>
-                          {getErrorMessage('cardOwner', form.errors.cardOwner)}
-                        </small>
                       </InputGroup>
                       <InputGroup>
                         <label htmlFor="cardOwnerCPF">
@@ -313,13 +303,10 @@ const CheckOut = () => {
                           type="text"
                           name="cardOwnerCPF"
                           value={form.values.cardOwnerCPF}
+                          className={
+                            checkInputHasError('cardOwnerCPF') ? 'error' : ''
+                          }
                         />
-                        <small>
-                          {getErrorMessage(
-                            'cardOwnerCPF',
-                            form.errors.cardOwnerCPF,
-                          )}
-                        </small>
                       </InputGroup>
                     </Row>
                     <Row marginTop="24px">
@@ -332,10 +319,10 @@ const CheckOut = () => {
                           type="text"
                           name="cardName"
                           value={form.values.cardName}
+                          className={
+                            checkInputHasError('cardName') ? 'error' : ''
+                          }
                         />
-                        <small>
-                          {getErrorMessage('cardName', form.errors.cardName)}
-                        </small>
                       </InputGroup>
                       <InputGroup>
                         <label htmlFor="cardNumber">Número do Cartão</label>
@@ -346,13 +333,10 @@ const CheckOut = () => {
                           type="text"
                           name="cardNumber"
                           value={form.values.cardNumber}
+                          className={
+                            checkInputHasError('cardNumber') ? 'error' : ''
+                          }
                         />
-                        <small>
-                          {getErrorMessage(
-                            'cardNumber',
-                            form.errors.cardNumber,
-                          )}
-                        </small>
                       </InputGroup>
                       <InputGroup maxWidth="123px">
                         <label htmlFor="cardExpirationMonth">
@@ -365,13 +349,12 @@ const CheckOut = () => {
                           type="text"
                           name="cardExpirationMonth"
                           value={form.values.cardExpirationMonth}
+                          className={
+                            checkInputHasError('cardExpirationMonth')
+                              ? 'error'
+                              : ''
+                          }
                         />
-                        <small>
-                          {getErrorMessage(
-                            'cardExpirationMonth',
-                            form.errors.cardExpirationMonth,
-                          )}
-                        </small>
                       </InputGroup>
                       <InputGroup maxWidth="123px">
                         <label htmlFor="cardExpirationYear">
@@ -384,13 +367,12 @@ const CheckOut = () => {
                           type="text"
                           name="cardExpirationYear"
                           value={form.values.cardExpirationYear}
+                          className={
+                            checkInputHasError('cardExpirationYear')
+                              ? 'error'
+                              : ''
+                          }
                         />
-                        <small>
-                          {getErrorMessage(
-                            'cardExpirationYear',
-                            form.errors.cardExpirationYear,
-                          )}
-                        </small>
                       </InputGroup>
                       <InputGroup maxWidth="48px">
                         <label htmlFor="cardCVV">CVV</label>
@@ -401,10 +383,10 @@ const CheckOut = () => {
                           type="text"
                           name="cardCVV"
                           value={form.values.cardCVV}
+                          className={
+                            checkInputHasError('cardCVV') ? 'error' : ''
+                          }
                         />
-                        <small>
-                          {getErrorMessage('cardCVV', form.errors.cardCVV)}
-                        </small>
                       </InputGroup>
                     </Row>
                     <Row marginTop="24px">
@@ -416,6 +398,9 @@ const CheckOut = () => {
                           id="installments"
                           name="installments"
                           value={form.values.installments}
+                          className={
+                            checkInputHasError('installments') ? 'error' : ''
+                          }
                         >
                           <option value="1">1x de R$ 100,00</option>
                           <option value="2">2x de R$ 50,00</option>
