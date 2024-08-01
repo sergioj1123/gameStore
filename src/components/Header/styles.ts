@@ -21,6 +21,10 @@ export const HeaderBar = styled.header`
   a {
     font-weight: bold;
   }
+
+  h1 {
+    line-height: 0;
+  }
 `;
 
 export const NavMoble = styled.nav`
