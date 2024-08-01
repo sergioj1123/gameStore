@@ -57,7 +57,7 @@ const Footer = () => (
           </Link>
         </Links>
       </FooterSection>
-      <p>{currentYear} - &copy; E-PLAY Todos os direitos reservados</p>
+      <p>{currentYear} - &copy; Sérgio Félix Todos os direitos reservados</p>
     </div>
   </Container>
 );
