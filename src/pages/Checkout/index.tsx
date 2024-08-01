@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import InputMask from 'react-input-mask';
 import Button from '../../components/Button';
 import Card from '../../components/Card';
 import { InputGroup, Row, TabButton } from './styles';
@@ -11,6 +12,7 @@ import barCode from '../../assets/images/barCode.svg';
 import { usePurchaseMutation } from '../../services/api';
 import { RootReducer } from '../../store';
 import { getTotalPrice, priceMask } from '../../utilities';
+import { clear } from '../../store/reducers/cart';
 
 type Installments = {
   quantity: number;
@@ -23,7 +25,7 @@ const CheckOut = () => {
   const [purchase, { data, isSuccess, isLoading }] = usePurchaseMutation();
   const { items } = useSelector((state: RootReducer) => state.cart);
   const [installments, setInstallments] = useState<Installments[]>([]);
-
+  const dispatch = useDispatch();
   const totalPrice = getTotalPrice(items);
 
   const form = useFormik({
@@ -131,12 +133,10 @@ const CheckOut = () => {
           },
           installments: Number(values.installments),
         },
-        products: [
-          {
-            id: 1,
-            price: 100,
-          },
-        ],
+        products: items.map((item) => ({
+          id: item.id,
+          price: item.prices.current as number,
+        })),
       });
     },
   });
@@ -168,7 +168,13 @@ const CheckOut = () => {
     }
   }, [totalPrice]);
 
-  if (items.length === 0) return <Navigate to="/" />;
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(clear());
+    }
+  }, [isSuccess, dispatch]);
+
+  if (items.length === 0 && !isSuccess) return <Navigate to="/" />;
 
   return (
     <div className="container">
@@ -241,7 +247,7 @@ const CheckOut = () => {
                 </InputGroup>
                 <InputGroup>
                   <label htmlFor="cpf">CPF</label>
-                  <input
+                  <InputMask
                     id="cpf"
                     type="text"
                     name="cpf"
@@ -249,6 +255,7 @@ const CheckOut = () => {
                     onChange={form.handleChange}
                     onBlur={form.handleBlur}
                     className={checkInputHasError('cpf') ? 'error' : ''}
+                    mask="999.999.999-99"
                   />
                 </InputGroup>
               </Row>
@@ -331,7 +338,7 @@ const CheckOut = () => {
                         <label htmlFor="cardOwnerCPF">
                           CPF do titular do cartão
                         </label>
-                        <input
+                        <InputMask
                           onChange={form.handleChange}
                           onBlur={form.handleBlur}
                           id="cardOwnerCPF"
@@ -341,6 +348,7 @@ const CheckOut = () => {
                           className={
                             checkInputHasError('cardOwnerCPF') ? 'error' : ''
                           }
+                          mask="999.999.999-99"
                         />
                       </InputGroup>
                     </Row>
@@ -361,7 +369,7 @@ const CheckOut = () => {
                       </InputGroup>
                       <InputGroup>
                         <label htmlFor="cardNumber">Número do Cartão</label>
-                        <input
+                        <InputMask
                           onChange={form.handleChange}
                           onBlur={form.handleBlur}
                           id="cardNumber"
@@ -371,13 +379,14 @@ const CheckOut = () => {
                           className={
                             checkInputHasError('cardNumber') ? 'error' : ''
                           }
+                          mask="9999 9999 9999 9999"
                         />
                       </InputGroup>
                       <InputGroup maxWidth="123px">
                         <label htmlFor="cardExpirationMonth">
                           Mês do vencimento
                         </label>
-                        <input
+                        <InputMask
                           onChange={form.handleChange}
                           onBlur={form.handleBlur}
                           id="cardExpirationMonth"
@@ -389,13 +398,14 @@ const CheckOut = () => {
                               ? 'error'
                               : ''
                           }
+                          mask="99"
                         />
                       </InputGroup>
                       <InputGroup maxWidth="123px">
                         <label htmlFor="cardExpirationYear">
                           Ano do vencimento
                         </label>
-                        <input
+                        <InputMask
                           onChange={form.handleChange}
                           onBlur={form.handleBlur}
                           id="cardExpirationYear"
@@ -407,11 +417,12 @@ const CheckOut = () => {
                               ? 'error'
                               : ''
                           }
+                          mask="99"
                         />
                       </InputGroup>
                       <InputGroup maxWidth="48px">
                         <label htmlFor="cardCVV">CVV</label>
-                        <input
+                        <InputMask
                           onChange={form.handleChange}
                           onBlur={form.handleBlur}
                           id="cardCVV"
@@ -421,6 +432,7 @@ const CheckOut = () => {
                           className={
                             checkInputHasError('cardCVV') ? 'error' : ''
                           }
+                          mask="999"
                         />
                       </InputGroup>
                     </Row>
@@ -438,7 +450,10 @@ const CheckOut = () => {
                           }
                         >
                           {installments.map((installment) => (
-                            <option key={installment.quantity} value="1">
+                            <option
+                              key={installment.quantity}
+                              value={installment.quantity}
+                            >
                               {installment.quantity}x de{' '}
                               {installment.formatedAmount}
                             </option>
